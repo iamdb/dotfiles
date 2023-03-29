@@ -1,0 +1,117 @@
+shell = "zsh"
+
+[plugins]
+
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[templates]
+defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+[plugins.starship]
+inline = 'eval "$(starship init zsh)"'
+
+[plugins.vimode]
+remote = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/vi-mode/vi-mode.plugin.zsh"
+
+[plugins.history]
+remote = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/history.zsh"
+
+[plugins.history_db]
+github = "larkery/zsh-histdb"
+use = ["sqlite-history.zsh"] 
+
+[plugins.z]
+github = "agkozak/zsh-z"
+
+[plugins.mcfly]
+inline = 'eval "$(mcfly init zsh)"'
+
+# [plugins.fzf]
+# local = "/usr/share/fzf/"
+# use = ["completion.zsh", "key-bindings.zsh"]
+
+[plugins.bun_completions]
+local = "/home/iamdb/.config/bun/"
+use = ["_bun"]
+
+[plugins.rust]
+local = "/home/iamdb/.cargo/"
+use = ["env"]
+
+[plugins.gh]
+inline = 'autoload -U "$(gh completion -s zsh)"'
+
+[plugins.direnv]
+inline = 'eval "$(direnv hook zsh)"'
+
+# [plugins.atuin]
+# inline = 'eval "$(atuin init zsh)"'
+#
+# [plugins.atuin_completions]
+# inline = 'autoload -U "$(atuin gen-completions --shell=zsh)"'
+
+[plugins.aliases]
+inline = """
+  alias ls='exa -bghu --git --group-directories-first --icons'
+  alias l='ls'
+  alias la='ls -a'
+  alias lla='ls -la'
+  alias lt='ls --tree'
+  alias du='dust'
+  alias ssh='TERM=xterm-256color ssh'
+  alias lazydocker='TERM=xterm-256color lazydocker'
+  alias clean_repo="find . \\( -name 'node_modules' -o -name 'dist' -o -name '.next' -o -name 'build' \\) -type d -prune -print -exec rm -rf '{}' \\;"
+  alias sudo='sudo '
+  alias tunnel='cloudflared tunnel'
+  #alias cat='bat --theme 1337 --tabs 1'
+  alias xclip="xclip -selection c"
+  alias lg="TERM=xterm-256color lazygit"
+  #alias ld="TERM=xterm-256color lazydocker"
+  alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+  alias lazyconfig='lazygit --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+  alias t='todo.sh'
+  alias s='kitty +kitten ssh'
+  alias bnoise='play -c 2 --null synth brownnoise reverb bass 10 treble -6'
+"""
+
+[plugins.localdocker]
+inline = """
+  localdocker() { 
+    eval $(docker-machine env -u)
+  }
+"""
+
+[plugins.dockah]
+inline = """
+  dockah() {
+    eval $(docker-machine env dockah)
+  }
+"""
+
+[plugins.colors]
+inline = """
+  printcolors() {
+    for i in {0..255}; do
+      printf "\\x1b[38;5;${i}mcolour${i}\\x1b[0m\\n"
+    done
+  }
+"""
+
+[plugins.streamlink]
+inline = """
+  slink () {
+    nohup mpv --ytdl-format=best $1 > /dev/null 2> /dev/null < /dev/null &!
+  }
+"""

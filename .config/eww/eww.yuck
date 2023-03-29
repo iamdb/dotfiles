@@ -1,0 +1,139 @@
+(defwidget bar []
+  (centerbox :orientation "h"
+    (leftstuff)
+    (workspaces)
+    (sidestuff)))
+
+(defwidget leftstuff []
+  (box :class "leftstuff"
+       :orientation "h"
+       :space-evenly false 
+       :spacing 30
+       :halign "start"
+    (music)
+    (gh)
+  ))
+
+(defwidget sidestuff []
+  (box :class "sidestuff"
+       :orientation "h" 
+       :space-evenly false 
+       :halign "end"
+    (datetime)
+    (box :class "systray"
+         :space-evenly true
+         :spacing 5
+      (box :class "trayicon"
+        (button :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          {muted == "[MUTED]" ? "" : ""}))
+      (box :class "trayicon"
+        (button :onclick ""
+          ""))
+      (box :class "trayicon"
+        (button :class "1p" 
+                :onclick "1password --toggle"
+                :onmiddleclick "1password --quick-access"
+          (image :path "images/1password.svg"
+                 :image-width 16
+                 :image-height 16))))))
+
+(defwidget music []
+  (revealer :transition "crossfade"
+            :reveal {music != ""}
+            :duration 250
+    (box :class "music-container"
+         :halign "start"
+         :space-evenly false
+         :spacing 5
+      (box :class "music"
+           :orientation "v"
+           :space-evenly true 
+        (label :class "track" 
+               :text {music.title}
+               :xalign 0.0)
+        (box :orientation "h"
+            :spacing 20
+          (label :class "artist"
+                :text {music.artist}
+                :xalign 0.0)
+          (label :text "${music.position}/${music.duration}"
+                :xalign 1.0
+                :class "clock")))
+    (box :class "controls"
+         :space-evenly true
+         :spacing 5
+      (button :onclick "playerctl previous" "")
+      (button :onclick "playerctl play-pause" {music.status == "Playing" ? "" : ""})
+      (button :onclick "playerctl next" "")
+      ))))
+
+(defwidget musiccoverart []
+  (box :class "coverart"
+       :style 'background-image: url("${music.coverart}")'
+       :width 100
+       :height 25))
+
+(defwidget workspaces []
+         (literal :content {wmstate} ))
+
+(defwidget gh []
+  (revealer :transition "crossfade"
+            :reveal {ghnotify > 0}
+            :duration 250
+    (box :class "gh-notify"
+        :halign "start"
+      (label :text ""
+            :xalign 0.5
+            :yalign 0.5
+            :justify "center"
+            :class "icon")
+        (label :class "count"
+              :xalign 0.5
+              :yalign 0.5
+              :justify "center"
+              :text {ghnotify}))))
+
+(defwidget datetime []
+  (box :class "datetime"
+       :space-evenly false
+       :spacing 20
+    (box :space-evenly false
+         :spacing 10
+      (label :text ""
+           :class "icon")
+      (label :text {date}))
+    (box :space-evenly false
+         :spacing 10
+      (label :text ""
+           :class "icon")
+      (label :text "${time}"
+           :class "time"))))
+
+(deflisten music :initial ""
+  "playerctl -F -i firefox metadata -f '{\"artist\":\"{{artist}}\",\"title\":\"{{title}}\",\"position\":\"{{duration(position)}}\",\"duration\":\"{{duration(mpris:length)}}\",\"status\":\"{{status}}\",\"coverart\":\"{{mpris:artUrl}}\"}'")
+
+(defpoll muted :interval "1s" :initial ""
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f3")
+
+(defpoll time :interval "10s"
+  "date '+%l:%M%#p'")
+
+(defpoll date :interval "60s"
+  "date '+%A  %B %d, %Y'")
+
+(defpoll ghnotify :interval "60s"
+  "gh api notifications -q length")
+
+(deflisten wmstate
+           :initial ""
+           "scripts/getws")
+
+(defwindow bar0
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "-8px"
+                      :width "60%"
+                      :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "5%")
+  (bar))

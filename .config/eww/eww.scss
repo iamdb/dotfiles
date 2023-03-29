@@ -1,0 +1,166 @@
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+.bar0 {
+  color: #e4e4e5;
+  font-family: "SF Compact Rounded";
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.sidestuff {
+  background-color: #161616;
+  border-radius: 0.5em;
+  border: 2px solid #282828;
+}
+
+.datetime {
+  padding: 0 1em;
+}
+
+.datetime .icon {
+  font-size: 1em;
+  font-family: "Pragmata Pro Liga";
+  color: rgba(82, 189, 255, 1);
+}
+
+.time {
+  font-family: "SF Mono";
+}
+
+.systray {
+  padding: 0.5em;
+  font-size: 1em;
+  font-family: "Pragmata Pro Liga";
+  color: rgba(82, 189, 255, 1);
+  border-left: 2px solid #282828;
+  background-color: rgba(82, 189, 255, 0.1);
+}
+
+.trayicon {
+  padding: 0.25em;
+}
+
+.trayicon button {
+  background-color: #282828;
+  border-radius: 100%;
+  padding: 0.5em;
+}
+
+.workspaces {
+  background-color: rgba(22, 22, 22, 1);
+  border: 2px solid #282828;
+  border-radius: 0.5em;
+}
+
+.workspaces button {
+  font-size: 1.25em;
+  padding: 0.75em;
+  font-family: "Pragmata Pro Liga";
+  border-radius: 0.25em;
+}
+
+.ws-current {
+  color: #52bdff;
+  background-color: #1c262d;
+  border: 1px solid #387296;
+}
+
+.ws-current:hover {
+  background-color: rgba(82, 189, 255, 0.25);
+}
+
+.ws-visible {
+  color: #d35d6e;
+  background-color: #282828;
+}
+
+.ws-urgent {
+  color: #ffd5ca;
+  background-color: rgba(211, 93, 110, 0.1);
+}
+
+.ws-busy {
+  color: #52bdff;
+  background-color: #1c262d;
+}
+
+.ws-hidden {
+  color: #52bdff;
+  background-color: #1c262d;
+}
+
+.ws-hidden-no-windows {
+  color: #484848;
+}
+
+.ws-hidden-no-windows:hover {
+  color: #52bdff;
+  background-color: #1c262d;
+}
+
+.music {
+  background-color: #1c262d;
+  border-radius: 0.5em;
+  border: 2px solid #282828;
+  padding: 0.5em;
+}
+
+.music .artist {
+  color: #53bdff;
+  font-size: 0.9em;
+}
+
+.music .track {
+  font-weight: bold;
+}
+
+.music .coverart {
+  background-size: cover;
+}
+
+.music .clock {
+  font-family: "SF Mono";
+  font-size: 0.8em;
+}
+
+.music-container .controls {
+  padding: 0.5em;
+}
+
+.music-container .controls button {
+  font-family: "Pragmata Pro Liga";
+  padding: 0.5em 0.75em;
+  border-radius: 0.5em;
+  color: #484848;
+  background-color: #161616;
+  border: 1px solid #282828;
+}
+
+.music-container .controls button:hover {
+  color: #52bdff;
+  background-color: #1c262d;
+  border: 1px solid #387296;
+}
+
+.gh-notify {
+  font-size: 1.5em;
+  font-family: "Pragmata Pro Liga";
+  margin: 0.25em 0;
+  background-color: #1c262d;
+  padding-left: 1px;
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  border: 2px solid #282828;
+}
+
+.gh-notify .icon {
+  background-color: #1c262d;
+  border: 1px solid #387296;
+  border-radius: 0.5em;
+  border-radius: 100%;
+  padding: 0 calc(0.5em - 2px);
+}

@@ -1,0 +1,91 @@
+command_timeout = 5000
+
+format = """\
+    $username\
+    $hostname\
+    $directory\
+    $git_branch\
+    $git_state\
+    $git_status\
+    $golang\
+    $nodejs\
+    $rust \
+    $python\
+    $conda \
+    $env_var\
+    $time\
+    $cmd_duration\
+    $line_break\
+    $jobs\
+    $character\
+"""
+
+[directory]
+style = "fg:#D4BA84"
+
+[git_branch]
+symbol = "🌱"
+format = '[\[$symbol[$branch](fg:#eeeeee)\]]($style)'
+style = "fg:#555555"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style))'
+style = "fg:#555555"
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+untracked = "🤸"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](cyan)'
+renamed = "👅"
+deleted = "🗑"
+
+[docker_context]
+symbol = "🐳"
+format = '\[[$symbol$context]($style)\]'
+only_with_files = false
+disabled = false
+
+[battery]
+disabled = true
+
+[character]
+success_symbol = "[🚀](fg:#73cef3)"
+error_symbol = "[💩](fg:#f43753)"
+
+[time]
+format = "[$time](fg:#555555) "
+disabled = false
+use_12hr = true
+
+[python]
+format = '[\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]](fg:#555555)'
+style = "red"
+
+[conda]
+format = ' via [$symbol$environment]($style) '
+
+[nodejs]
+style = "fg:red"
+format = '[\[[$symbol($version)]($style)\]](fg:#555555)'
+
+[cmd_duration]
+style = "fg:#D4BA84"
+format = "took $duration($style)"
+
+[golang]
+format = '[\[[$symbol($version)]($style)\]](fg:#555555)'
+
+[lua]
+format = '\[[$symbol($version)]($style)\]'
+
+[package]
+format = '\[[$symbol$version]($style)\]'
+
+[ruby]
+format = '\[[$symbol($version)]($style)\]'
+
+[rust]
+format = '[\[[$symbol($version)]($style)\]](fg:#555555)'

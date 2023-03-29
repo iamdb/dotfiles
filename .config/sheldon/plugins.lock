@@ -1,0 +1,123 @@
+version = "0.6.6"
+home = "/home/iamdb"
+config_dir = "/home/iamdb/.sheldon"
+data_dir = "/home/iamdb/.sheldon"
+config_file = "/home/iamdb/.sheldon/plugins.toml"
+lock_file = "/home/iamdb/.sheldon/plugins.lock"
+clone_dir = "/home/iamdb/.sheldon/repos"
+download_dir = "/home/iamdb/.sheldon/downloads"
+
+[[plugins]]
+name = "zsh-defer"
+source_dir = "/home/iamdb/.sheldon/repos/github.com/romkatv/zsh-defer"
+files = ["/home/iamdb/.sheldon/repos/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "zsh-syntax-highlighting"
+source_dir = "/home/iamdb/.sheldon/repos/github.com/zsh-users/zsh-syntax-highlighting"
+files = ["/home/iamdb/.sheldon/repos/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh"]
+apply = ["defer"]
+
+[[plugins]]
+name = "zsh-autosuggestions"
+source_dir = "/home/iamdb/.sheldon/repos/github.com/zsh-users/zsh-autosuggestions"
+files = ["/home/iamdb/.sheldon/repos/github.com/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "zsh-completions"
+source_dir = "/home/iamdb/.sheldon/repos/github.com/zsh-users/zsh-completions"
+files = ["/home/iamdb/.sheldon/repos/github.com/zsh-users/zsh-completions/zsh-completions.plugin.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "spaceship"
+source_dir = "/home/iamdb/.sheldon/repos/github.com/spaceship-prompt/spaceship-prompt"
+files = ["/home/iamdb/.sheldon/repos/github.com/spaceship-prompt/spaceship-prompt/spaceship.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "spaceship-start"
+raw = "eval \"$(starship init zsh)\""
+
+[[plugins]]
+name = "vimode"
+source_dir = "/home/iamdb/.sheldon/downloads/raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/vi-mode"
+files = ["/home/iamdb/.sheldon/downloads/raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/vi-mode/vi-mode.plugin.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "history"
+source_dir = "/home/iamdb/.sheldon/downloads/raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib"
+files = ["/home/iamdb/.sheldon/downloads/raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/history.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "z"
+source_dir = "/home/iamdb/.sheldon/repos/github.com/agkozak/zsh-z"
+files = ["/home/iamdb/.sheldon/repos/github.com/agkozak/zsh-z/zsh-z.plugin.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "fzf"
+source_dir = "/usr/share/fzf/"
+files = ["/usr/share/fzf/completion.zsh", "/usr/share/fzf/key-bindings.zsh"]
+apply = ["source"]
+
+[[plugins]]
+name = "rust"
+source_dir = "/home/iamdb/.cargo/"
+files = ["/home/iamdb/.cargo/env", "/home/iamdb/.cargo/registry/src/github.com-1ecc6299db9ec823/librocksdb-sys-0.6.1+6.28.2/rocksdb/env", "/home/iamdb/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-subscriber-0.2.20/src/filter/env", "/home/iamdb/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-subscriber-0.3.11/src/filter/env", "/home/iamdb/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-subscriber-0.3.2/src/filter/env"]
+apply = ["source"]
+
+[[plugins]]
+name = "gh"
+raw = "eval \"$(gh completion -s zsh)\""
+
+[[plugins]]
+name = "direnv"
+raw = "eval \"$(direnv hook zsh)\""
+
+[[plugins]]
+name = "aliases"
+raw = "  alias ls='exa -bghu --git --group-directories-first --icons'\n  alias l='ls'\n  alias la='ls -a'\n  alias lla='ls -la'\n  alias lt='ls --tree'\n  alias du='dust'\n  alias ssh='TERM=xterm-256color ssh'\n  alias lazydocker='TERM=xterm-256color lazydocker'\n  alias clean_repo=\"find . \\( -name 'node_modules' -o -name 'dist' -o -name '.next' -o -name 'build' \\) -type d -prune -print -exec rm -rf '{}' \\;\"\n  alias sudo='sudo '\n  alias tunnel='cloudflared tunnel'\n  #alias cat='bat --theme 1337 --tabs 1'\n  alias xclip=\"xclip -selection c\"\n  alias lg=\"TERM=xterm-256color lazygit\"\n  #alias ld=\"TERM=xterm-256color lazydocker\"\n  alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'\n  alias t='todo.sh'\n  alias s='kitty +kitten ssh'\n"
+
+[[plugins]]
+name = "localdocker"
+raw = "  localdocker() { \n    eval $(docker-machine env -u)\n  }\n"
+
+[[plugins]]
+name = "dockah"
+raw = "  dockah() {\n    eval $(docker-machine env dockah)\n  }\n"
+
+[[plugins]]
+name = "colors"
+raw = "  printcolors() {\n    for i in {0..255}; do\n      printf \"\\x1b[38;5;${i}mcolour${i}\\x1b[0m\\n\"\n    done\n  }\n"
+
+[[plugins]]
+name = "streamlink"
+raw = "  slink () {\n    nohup mpv --ytdl-format=best $1 > /dev/null 2> /dev/null < /dev/null &!\n  }\n"
+
+[[plugins]]
+name = "play"
+raw = "  play () {\n    albums=$(hifi-rs search-albums $1)\n    fzf_list=$(printf \"%b\" \"$albums\" | jq -r '.albums.items | .[] | .artist.name + \" - \" + .title + \"\t(\" + .id + \")\"')\n    selected_album=$(printf \"%b\" \"$fzf_list\" | fzf)\n    selected_album_id=$(printf \"%b\" \"$selected_album\" | awk -F '\t' '{print $2}' | tr -d '()')\n    if [ ! -z \"$selected_album_id\" -a \"$selected_album_id\" != \" \" ]\n    then \n      hifi-rs stream-album $(printf \"%b\" \"$selected_album_id\")\n    fi \n  }\n"
+[templates.PATH]
+value = "export PATH=\"{{ dir }}:$PATH\""
+each = false
+
+[templates.path]
+value = "path=( \"{{ dir }}\" $path )"
+each = false
+
+[templates.fpath]
+value = "fpath=( \"{{ dir }}\" $fpath )"
+each = false
+
+[templates.source]
+value = "source \"{{ file }}\""
+each = true
+
+[templates.defer]
+value = "zsh-defer source \"{{ file }}\""
+each = true
